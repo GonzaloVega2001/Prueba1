@@ -1,0 +1,8 @@
+@model ErrorViewModel
+<div class="wrap" style="padding:80px 28px;">
+    <h1>Ocurrió un error</h1>
+    @if (Model.ShowRequestId)
+    {
+        <p>ID de la solicitud: <code>@Model.RequestId</code></p>
+    }
+</div>

@@ -1,192 +1,723 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@model HomeViewModel
+
+@{
+    var status = TempData["ContactStatus"] as string;
+    var toastMessage = TempData["ContactMessage"] as string;
+
+    if (string.IsNullOrWhiteSpace(toastMessage))
+    {
+        toastMessage = status == "success"
+            ? "Te responderemos apenas lo revisemos — gracias por escribir."
+            : status == "error"
+                ? "No se pudo enviar el mensaje."
+                : null;
+    }
 }
 
+@if (status is not null)
+{
+    <div id="toast-data"
+         data-status="@status"
+         data-message="@toastMessage"
+         style="display:none;">
+    </div>
+}
+
+<header>
+    <div class="nav">
+
+        <div class="logo">
+            <span class="dot"></span>Commit<span class="logo-sep">;</span><span class="logo-sub">Systems</span>
+        </div>
+
+        <nav class="nav-links" id="nav-links">
+            <a href="#servicios">Servicios</a>
+            <a href="#proceso">Proceso</a>
+            <a href="#stack">Stack</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
+
+        <a href="#contacto" class="nav-cta">
+            Agendar llamada
+        </a>
+
+        <button class="burger"
+                id="burger"
+                aria-label="Abrir menú">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+    </div>
+</header>
+
+
+<!-- ========================================================= -->
 <!-- HERO -->
+<!-- ========================================================= -->
+
 <section class="hero">
-    <div class="container text-center">
-        <span class="badge-pill">✨ Bienvenido</span>
-        <h1 class="hero-title">Construye algo <span>increíble</span></h1>
-        <p class="hero-subtitle">
-            Aprende a crear aplicaciones web modernas con
-            <a href="https://learn.microsoft.com/aspnet/core" target="_blank">ASP.NET Core</a>.
-        </p>
-        <div class="hero-actions">
-            <a href="#features" class="btn btn-primary btn-lg">Empezar ahora</a>
-            <a href="https://learn.microsoft.com/aspnet/core" target="_blank" class="btn btn-outline-light btn-lg">Ver documentación</a>
+
+    <div class="wrap hero-grid">
+
+        <div>
+
+            <span class="eyebrow">
+                @Model.HeroEyebrow
+            </span>
+
+            <h1>
+                Software a medida,<br />
+                sin vueltas ni <em>relleno</em>.
+            </h1>
+
+            <p class="lead">
+                @Model.HeroLead
+            </p>
+
+            <div class="hero-actions">
+
+                <a href="#contacto"
+                   class="btn btn-primary">
+                    Conversemos tu proyecto →
+                </a>
+
+                <a href="#servicios"
+                   class="btn btn-ghost">
+                    Ver servicios
+                </a>
+
+            </div>
+
+            <div class="hero-meta">
+
+                <span>
+                    <b>Equipo</b> full-stack
+                </span>
+
+                <span>
+                    <b>Web &amp; apps</b> de punta a punta
+                </span>
+
+                <span>
+                    <b>Chile</b> remoto o presencial
+                </span>
+
+            </div>
+
         </div>
-    </div>
-</section>
 
-<!-- FEATURES -->
-<section id="features" class="features py-5">
-    <div class="container">
-        <div class="row g-4 text-center">
-            <div class="col-md-4">
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3>Rápido</h3>
-                    <p>Rendimiento optimizado desde el primer request.</p>
-                </div>
+
+        <!-- ================================================= -->
+        <!-- DIAGRAMA -->
+        <!-- ================================================= -->
+
+        <div class="diagram reveal">
+
+            <div class="diagram-label">
+                <span>fig. 01</span>
+                <span>arquitectura del servicio</span>
             </div>
-            <div class="col-md-4">
-                <div class="feature-card">
-                    <div class="feature-icon">🔒</div>
-                    <h3>Seguro</h3>
-                    <p>Autenticación y buenas prácticas integradas.</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="feature-card">
-                    <div class="feature-icon">🚀</div>
-                    <h3>Escalable</h3>
-                    <p>Listo para crecer junto a tu proyecto.</p>
-                </div>
-            </div>
+
+            <svg viewBox="0 0 400 300"
+                 xmlns="http://www.w3.org/2000/svg">
+
+                <rect x="150"
+                      y="10"
+                      width="100"
+                      height="40"
+                      rx="2"
+                      fill="none"
+                      stroke="#151A21"
+                      stroke-width="1.5" />
+
+                <text x="200"
+                      y="34"
+                      text-anchor="middle"
+                      font-family="IBM Plex Mono"
+                      font-size="11"
+                      fill="#151A21">
+                    Tu negocio
+                </text>
+
+                <line x1="200"
+                      y1="50"
+                      x2="200"
+                      y2="80"
+                      stroke="#151A21"
+                      stroke-width="1.5" />
+
+                <rect x="120"
+                      y="80"
+                      width="160"
+                      height="44"
+                      rx="2"
+                      fill="#151A21" />
+
+                <text x="200"
+                      y="98"
+                      text-anchor="middle"
+                      font-family="IBM Plex Mono"
+                      font-size="10"
+                      fill="#F2B705">
+                    CONSULTORÍA
+                </text>
+
+                <text x="200"
+                      y="113"
+                      text-anchor="middle"
+                      font-family="IBM Plex Mono"
+                      font-size="9"
+                      fill="#F2F3EE">
+                    análisis + arquitectura
+                </text>
+
+                <line x1="200"
+                      y1="124"
+                      x2="200"
+                      y2="150"
+                      stroke="#151A21"
+                      stroke-width="1.5" />
+
+                <line x1="90"
+                      y1="150"
+                      x2="310"
+                      y2="150"
+                      stroke="#151A21"
+                      stroke-width="1.5" />
+
+                <line x1="90"
+                      y1="150"
+                      x2="90"
+                      y2="175"
+                      stroke="#151A21"
+                      stroke-width="1.5" />
+
+                <line x1="310"
+                      y1="150"
+                      x2="310"
+                      y2="175"
+                      stroke="#151A21"
+                      stroke-width="1.5" />
+
+                <rect x="30"
+                      y="175"
+                      width="120"
+                      height="46"
+                      rx="2"
+                      fill="none"
+                      stroke="#0F7A78"
+                      stroke-width="1.5" />
+
+                <text x="90"
+                      y="196"
+                      text-anchor="middle"
+                      font-family="IBM Plex Mono"
+                      font-size="10"
+                      fill="#0F7A78">
+                    Desarrollo Web
+                </text>
+
+                <text x="90"
+                      y="210"
+                      text-anchor="middle"
+                      font-family="IBM Plex Mono"
+                      font-size="8"
+                      fill="#454E58">
+                    React / Next.js
+                </text>
+
+                <rect x="250"
+                      y="175"
+                      width="120"
+                      height="46"
+                      rx="2"
+                      fill="none"
+                      stroke="#0F7A78"
+                      stroke-width="1.5" />
+
+                <text x="310"
+                      y="196"
+                      text-anchor="middle"
+                      font-family="IBM Plex Mono"
+                      font-size="10"
+                      fill="#0F7A78">
+                    App / Backend
+                </text>
+
+                <text x="310"
+                      y="210"
+                      text-anchor="middle"
+                      font-family="IBM Plex Mono"
+                      font-size="8"
+                      fill="#454E58">
+                    .NET / Django
+                </text>
+
+                <line x1="90"
+                      y1="221"
+                      x2="90"
+                      y2="245"
+                      stroke="#151A21"
+                      stroke-width="1.5" />
+
+                <line x1="310"
+                      y1="221"
+                      x2="310"
+                      y2="245"
+                      stroke="#151A21"
+                      stroke-width="1.5" />
+
+                <line x1="90"
+                      y1="245"
+                      x2="310"
+                      y2="245"
+                      stroke="#151A21"
+                      stroke-width="1.5" />
+
+                <line x1="200"
+                      y1="245"
+                      x2="200"
+                      y2="260"
+                      stroke="#151A21"
+                      stroke-width="1.5" />
+
+                <rect x="140"
+                      y="260"
+                      width="120"
+                      height="34"
+                      rx="2"
+                      fill="#F2B705" />
+
+                <text x="200"
+                      y="281"
+                      text-anchor="middle"
+                      font-family="IBM Plex Mono"
+                      font-size="10"
+                      font-weight="700"
+                      fill="#151A21">
+                    Producto en producción
+                </text>
+
+            </svg>
+
         </div>
+
     </div>
+
 </section>
 
-<!-- CTA -->
-<section class="cta text-center py-5">
-    <div class="container">
-        <h2>¿Listo para comenzar?</h2>
-        <p>Crea tu primera aplicación en minutos.</p>
-        <a href="#" class="btn btn-primary btn-lg">Crear proyecto</a>
+
+<!-- ========================================================= -->
+<!-- SERVICIOS -->
+<!-- ========================================================= -->
+
+<section id="servicios">
+
+    <div class="wrap">
+
+        <div class="section-head reveal">
+
+            <div>
+
+                <span class="section-tag">
+                    Servicios
+                </span>
+
+                <h2>
+                    Tres formas de trabajar juntos
+                </h2>
+
+            </div>
+
+            <p class="section-desc">
+                Elige según qué tan definido esté tu proyecto —
+                desde una idea en servilleta hasta un sistema que
+                ya funciona y necesita crecer.
+            </p>
+
+        </div>
+
+
+        <div class="services reveal">
+
+            @foreach (var s in Model.Services)
+            {
+                <div class="service-card">
+
+                    <span class="service-num">
+                        @s.Num
+                    </span>
+
+                    <h3>
+                        @s.Title
+                    </h3>
+
+                    <p>
+                        @s.Desc
+                    </p>
+
+                    <div class="service-tags">
+
+                        @foreach (var tag in s.Tags)
+                        {
+                            <span class="tag">
+                                @tag
+                            </span>
+                        }
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+
     </div>
+
 </section>
 
-<style>
-    :root {
-        --primary: #6366f1;
-        --primary-dark: #4338ca;
-        --bg-dark: #0f172a;
-        --text-light: #e2e8f0;
-    }
 
-    .hero {
-        background: linear-gradient(135deg, var(--bg-dark) 0%, #1e1b4b 100%);
-        color: white;
-        padding: 100px 20px;
-        position: relative;
-        overflow: hidden;
-    }
+<!-- ========================================================= -->
+<!-- PROCESO -->
+<!-- ========================================================= -->
 
-    .badge-pill {
-        display: inline-block;
-        background: rgba(99, 102, 241, 0.15);
-        color: #a5b4fc;
-        padding: 6px 16px;
-        border-radius: 999px;
-        font-size: 0.9rem;
-        margin-bottom: 20px;
-        border: 1px solid rgba(99, 102, 241, 0.3);
-    }
+<section id="proceso">
 
-    .hero-title {
-        font-size: 3.2rem;
-        font-weight: 800;
-        margin-bottom: 20px;
-    }
+    <div class="wrap">
 
-    .hero-title span {
-        background: linear-gradient(90deg, #818cf8, #c084fc);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-    }
+        <div class="section-head reveal">
 
-    .hero-subtitle {
-        font-size: 1.2rem;
-        color: #cbd5e1;
-        max-width: 600px;
-        margin: 0 auto 35px;
-    }
+            <div>
 
-    .hero-subtitle a {
-        color: #a5b4fc;
-        text-decoration: underline;
-    }
+                <span class="section-tag">
+                    Proceso
+                </span>
 
-    .hero-actions {
-        display: flex;
-        gap: 15px;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
+                <h2>
+                    Cómo avanza un proyecto
+                </h2>
 
-    .btn-primary {
-        background: var(--primary);
-        border: none;
-        padding: 12px 32px;
-        border-radius: 10px;
-        font-weight: 600;
-        transition: 0.2s ease;
-    }
+            </div>
 
-    .btn-primary:hover {
-        background: var(--primary-dark);
-        transform: translateY(-2px);
-    }
+            <p class="section-desc">
+                Cuatro etapas, siempre en este orden —
+                sin saltarse la parte de entender el problema
+                antes de escribir código.
+            </p>
 
-    .btn-outline-light {
-        padding: 12px 32px;
-        border-radius: 10px;
-        font-weight: 600;
-        border: 1px solid rgba(255,255,255,0.3);
-    }
+        </div>
 
-    .features {
-        background: #f8fafc;
-    }
 
-    .feature-card {
-        background: white;
-        padding: 35px 25px;
-        border-radius: 16px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-        height: 100%;
-        transition: 0.2s ease;
-    }
+        <div class="reveal">
 
-    .feature-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(99,102,241,0.15);
-    }
+            @foreach (var step in Model.Process)
+            {
+                <div class="process-row">
 
-    .feature-icon {
-        font-size: 2.2rem;
-        margin-bottom: 15px;
-    }
+                    <span class="process-num">
+                        @step.Num
+                    </span>
 
-    .feature-card h3 {
-        font-weight: 700;
-        margin-bottom: 10px;
-    }
+                    <h3>
+                        @step.Title
+                    </h3>
 
-    .feature-card p {
-        color: #64748b;
-        margin: 0;
-    }
+                    <p>
+                        @step.Desc
+                    </p>
 
-    .cta {
-        background: var(--bg-dark);
-        color: white;
-    }
+                </div>
+            }
 
-    .cta h2 {
-        font-weight: 800;
-        margin-bottom: 10px;
-    }
+        </div>
 
-    .cta p {
-        color: #94a3b8;
-        margin-bottom: 25px;
-    }
+    </div>
 
-    @@media (max-width: 768px) {
-        .hero-title {
-            font-size: 2.2rem;
-        }
-    }
-</style>
+</section>
+
+
+<!-- ========================================================= -->
+<!-- STACK -->
+<!-- ========================================================= -->
+
+<section id="stack">
+
+    <div class="wrap">
+
+        <div class="section-head reveal">
+
+            <div>
+
+                <span class="section-tag">
+                    Stack técnico
+                </span>
+
+                <h2>
+                    Con qué construimos
+                </h2>
+
+            </div>
+
+            <p class="section-desc">
+                Herramientas elegidas por proyecto, no por moda —
+                priorizando lo que sea más fácil de operar
+                a largo plazo.
+            </p>
+
+        </div>
+
+
+        <div class="stack-groups reveal">
+
+            @foreach (var group in Model.Stack)
+            {
+                <div class="stack-group">
+
+                    <h4>
+                        @group.Group
+                    </h4>
+
+                    <ul>
+
+                        @foreach (var item in group.Items)
+                        {
+                            <li>
+                                @item
+                            </li>
+                        }
+
+                    </ul>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================================================= -->
+<!-- POR QUÉ NOSOTROS -->
+<!-- ========================================================= -->
+
+<section>
+
+    <div class="wrap">
+
+        <div class="section-head reveal">
+
+            <div>
+
+                <span class="section-tag">
+                    Por qué trabajar con nosotros
+                </span>
+
+                <h2>
+                    Sin equipo de ventas, sin capas de más
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="why reveal">
+
+            @foreach (var item in Model.Why)
+            {
+                <div class="why-card">
+
+                    <b>
+                        @item.Title
+                    </b>
+
+                    <p>
+                        @item.Desc
+                    </p>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================================================= -->
+<!-- CONTACTO -->
+<!-- ========================================================= -->
+
+<section id="contacto"
+         style="border-bottom:none;">
+
+    <div class="wrap contact-grid">
+
+        <!-- INFORMACIÓN -->
+
+        <div class="contact-info reveal">
+
+            <span class="section-tag">
+                Contacto
+            </span>
+
+            <h2>
+                Hablemos de tu proyecto
+            </h2>
+
+            <p>
+                Cuéntanos qué necesitas y te respondemos
+                con una propuesta inicial en 48 horas hábiles.
+                Sin compromiso.
+            </p>
+
+            @foreach (var line in Model.ContactLines)
+            {
+                <div class="contact-line">
+
+                    <span>
+                        @line.Label
+                    </span>
+
+                    <span>
+                        @line.Value
+                    </span>
+
+                </div>
+            }
+
+        </div>
+
+
+        <!-- FORMULARIO -->
+
+        <form asp-controller="Home"
+              asp-action="Contact"
+              method="post"
+              class="reveal">
+
+            @Html.AntiForgeryToken()
+
+
+            <!-- NOMBRE / CORREO -->
+
+            <div class="row2">
+
+                <div class="field">
+
+                    <label asp-for="ContactForm.Name">
+                        Nombre
+                    </label>
+
+                    <input asp-for="ContactForm.Name"
+                           placeholder="Tu nombre" />
+
+                    <span asp-validation-for="ContactForm.Name"
+                          style="
+                        color:#B3261E;
+                        font-family:var(--mono);
+                        font-size:12px;
+                        ">
+                    </span>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label asp-for="ContactForm.Email">
+                        Correo
+                    </label>
+
+                    <input asp-for="ContactForm.Email"
+                           placeholder="tucorreo@empresa.cl" />
+
+                    <span asp-validation-for="ContactForm.Email"
+                          style="
+                        color:#B3261E;
+                        font-family:var(--mono);
+                        font-size:12px;
+                        ">
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- TIPO DE PROYECTO -->
+
+            <div class="field">
+
+                <label asp-for="ContactForm.ProjectType">
+                    Tipo de proyecto
+                </label>
+
+                <select asp-for="ContactForm.ProjectType"
+                        asp-items="@(new SelectList(ContactFormModel.ProjectTypes))">
+                </select>
+
+            </div>
+
+
+            <!-- MENSAJE -->
+
+            <div class="field">
+
+                <label asp-for="ContactForm.Message">
+                    Cuéntanos de tu proyecto
+                </label>
+
+                <textarea asp-for="ContactForm.Message"
+                          placeholder="Qué necesitas, plazos aproximados, presupuesto si ya lo tienes...">
+                </textarea>
+
+                <span asp-validation-for="ContactForm.Message"
+                      style="
+                    color:#B3261E;
+                    font-family:var(--mono);
+                    font-size:12px;
+                    ">
+                </span>
+
+            </div>
+
+
+            <!-- BOTÓN -->
+
+            <button type="submit"
+                    class="submit-btn">
+                Enviar mensaje →
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- ========================================================= -->
+<!-- FOOTER -->
+<!-- ========================================================= -->
+
+<footer>
+
+    <div class="wrap footer-row">
+
+        <span>
+            © 2026 Commit Systems — Consultoría de software
+        </span>
+
+        <span>
+            San Felipe, Chile
+        </span>
+
+    </div>
+
+</footer>
